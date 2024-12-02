@@ -3,6 +3,17 @@ include 'configs.php';
  
 $act = $_GET['act'];
  
+//Registar Cliente
+
+if($act =='registar_cliente'){
+    $nome = $_POST['name'];
+    $data_nascimento = $_POST['data_nascimento'];
+    $user = $_POST['user'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+}
+
+
 // Eliminar cliente
 if ($act == 'eliminar_cliente'){
     $ID = $_GET['ID'];
@@ -18,3 +29,4 @@ if ($act == 'eliminar_cliente'){
  
     exit;
 }
+

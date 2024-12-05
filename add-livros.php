@@ -1,27 +1,5 @@
 <?php
 include 'configs.php';
-
-// Verificar se o formulário foi enviado.
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $titulo = $_POST['titulo'];
-    $isbn = $_POST['isbn'];
-    $autor = $_POST['autor'];
-    $data_publicacao = $_POST['data_publicacao'];
-    $qt_paginas = $_POST['qt_paginas'];
-    $idioma = $_POST['idioma'];
-    $sinopse = $_POST['sinopse'];
-
-    // novo livro -db
-    $sql = "INSERT INTO livros (titulo, ISBN, autor, data_publicacao, qt_paginas, idioma, sinopse) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssssiss', $titulo, $isbn, $autor, $data_publicacao, $qt_paginas, $idioma, $sinopse);
-    $stmt->execute();
-
-    
-    header('Location: listar-livros.php');
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -32,38 +10,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Livro</title>
     <link rel="stylesheet" href="assets/css/add-livros.css">
+
 </head>
 
 <body>
+    <div class="container">
     <h1>Adicionar Livro</h1>
-    <form method="post">
-        <label for="titulo">Título:</label><br>
-        <input type="text" id="titulo" name="titulo" required><br><br>
-
-        <label for="isbn">ISBN:</label><br>
-        <input type="text" id="isbn" name="isbn" required><br><br>
-
-        <label for="autor">Autor:</label><br>
-        <input type="text" id="autor" name="autor" required><br><br>
-
-        <label for="data_publicacao">Data de Publicação:</label><br>
-        <input type="date" id="data_publicacao" name="data_publicacao" required><br><br>
-
-        <label for="qt_paginas">Quantidade de Páginas:</label><br>
-        <input type="number" id="qt_paginas" name="qt_paginas" required><br><br>
-
-        <label for="idioma">Idioma:</label><br>
-        <input type="text" id="idioma" name="idioma" required><br><br>
-
-        <label for="sinopse">Sinopse:</label><br>
-        <textarea id="sinopse" name="sinopse" rows="4" cols="50"></textarea><br><br>
-
-        <button type="submit">Salvar</button>
+    <form action="actions.php?act=adicionar_livro" method="POST">
+        <table>
+            <tr>
+                <th>Título:</th>
+                <td><input type="text" id="titulo" name="titulo" required placeholder="Titulo"></td>
+            </tr>
+            <tr>
+                <th>ISBN:</th>
+                <td><input type="text" id="isbn" name="isbn" required placeholder="ISBN"></td>
+            </tr>
+            <tr>
+                <th>Autor:</th>
+                <td><input type="text" id="autor" name="autor" required placeholder="Autor"></td>
+            </tr>
+            <tr>
+                <th>Data de Publicação:</th>
+                <td><input type="date" id="data_publicacao" name="data_publicacao" required placeholder="Data Publicação"></td>
+            </tr>
+            <tr>
+                <th>Quantidade de Páginas:</th>
+                <td><input type="number" id="qt_paginas" name="qt_paginas" required placeholder="Quantidade de Páginas"></td>
+            </tr>
+            <tr>
+                <th>Idioma:</th>
+                <td>
+                    <select id="idioma" name="idioma" required>
+                        <option value="Português">Português</option>
+                        <option value="Inglês">Inglês</option>
+                        <option value="Espanhol">Espanhol</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Sinopse:</th>
+                <td><textarea id="sinopse" name="sinopse" required placeholder="Sinopse"></textarea></td>
+            </tr>
+        </table>
+        <button type="submit">Adicionar</button>
     </form>
-    <br>
-    <div class="button-container">
-        <a href="listar-livros.php">Voltar para Lista de Livros</a>
     </div>
+
 </body>
 
 </html>

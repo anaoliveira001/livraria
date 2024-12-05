@@ -1,19 +1,15 @@
 <?php
-$server = 'localhost';
-$user = 'root';
-$pw = '';
-$db = 'livraria';
+// Configuração do banco de dados
+$host = 'localhost'; // Endereço do servidor (geralmente localhost)
+$user = 'root'; // Nome de usuário do MySQL
+$password = ''; // Senha do MySQL (em muitos casos no XAMPP, é vazio)
+$database = 'livraria'; // Nome do banco de dados
 
-error_reporting(E_ALL); // mostra todos os erros
-ini_set('display_errors', 1); // reforço da apresentaçao de erros
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // reporta erros
+// Criando a conexão com o banco de dados
+$conn = new mysqli($host, $user, $password, $database);
 
-//ligação db
-$conn = new mysqli($server, $user, $pw, $db);
-//condiçao de erro
+// Verificando se a conexão foi bem-sucedida
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-    exit;
+    die("Erro na conexão com o banco de dados: " . $conn->connect_error);
 }
-
-
+?>

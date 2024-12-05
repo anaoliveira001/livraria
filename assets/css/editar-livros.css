@@ -6,37 +6,37 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .container {
-    width: 90%;
-    max-width: 900px; /* Largura maior */
+    width: 80%;
+    max-width: 800px;
     background-color: #ffffff;
-    border-radius: 10px;
-    padding: 30px;
+    border-radius: 8px;
+    padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 h1 {
-    font-size: 28px; /* Título maior */
-    margin-bottom: 30px;
+    font-size: 24px;
+    margin-bottom: 20px;
     color: #333;
 }
 
 table {
-    width: 100%; /* Ocupa toda a largura */
+    width: 100%;
     border-collapse: collapse;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 table th,
 table td {
     text-align: left;
-    padding: 12px; /* Maior espaçamento */
+    padding: 10px;
     border-bottom: 1px solid #ddd;
-    font-size: 16px; /* Texto mais legível */
+    font-size: 16px;
 }
 
 table th {
@@ -44,36 +44,34 @@ table th {
     color: #ffffff;
     font-weight: bold;
     text-transform: uppercase;
-    width: 25%; /* Ajusta largura das colunas de rótulos */
 }
 
 table td input,
 table td select,
 table td textarea {
-    width: 100%; /* Ocupa toda a célula */
-    max-width: 100%; /* Garante que os campos não passem dos limites */
-    padding: 12px; /* Altura maior */
+    width: 100%;
+    padding: 8px;
     margin: 5px 0;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px; /* Texto mais legível */
+    border-radius: 4px;
+    font-size: 14px;
 }
 
 table td textarea {
     resize: none;
-    height: 150px; /* Altura maior para campos de texto */
+    height: 80px;
 }
 
 button {
     background-color: #007bff;
     color: #ffffff;
     border: none;
-    padding: 14px 25px; /* Botões maiores */
-    font-size: 18px; /* Texto maior no botão */
+    padding: 10px 15px;
+    font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: background-color 0.3s ease;
 }
 

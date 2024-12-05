@@ -43,13 +43,13 @@ td {
     color: #555;
 }
 
-a {
+a .btn {
     text-decoration: none;
     color: #4CAF50;
     font-weight: bold;
 }
 
-a:hover {
+a .btn:hover {
     color: #007B33;
 }
 

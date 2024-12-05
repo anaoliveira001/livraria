@@ -47,7 +47,12 @@ if (isset($_GET['delete_id'])) {
                 <td><?= $row['data_publicacao'] ?></td>
                 <td>
                     <!-- Link para deletar o livro -->
-                    <a href="listar-livros.php?delete_id=<?= $row['ID'] ?>" onclick="return confirm('Tem certeza que deseja excluir este livro?');">Excluir</a>
+                    <a href="listar-livros.php?delete_id=<?= $row['ID'] ?>" onclick="return confirm('Tem certeza que deseja excluir este livro?');">
+                        <img src="imgs/delete.png" alt="" width="20">
+                    </a>
+                    <a href="editar-livro.php?ID=<?= $row['ID'] ?>">
+                        <img src="imgs/edit.png" alt="Editar" height="20">
+                    </a
                 </td>
             </tr>
         <?php

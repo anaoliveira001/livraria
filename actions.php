@@ -3,9 +3,13 @@ include 'configs.php';
 
 $act = $_GET['act'];
 
-//Registar Cliente
+if (@$act == ''){
+    echo "Não existe uma ação indicada";
+    exit;
+}
 
-if (isset($_GET['act']) && $_GET['act'] === 'registar_cliente') {
+//Registar Cliente
+if ($act == 'registar_cliente') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome = $_POST['nome'];
         $data_nascimento = $_POST['data_nascimento'];
@@ -54,7 +58,7 @@ if (isset($_GET['act']) && $_GET['act'] === 'registar_cliente') {
 
 if ($act === 'eliminar_cliente') {
     if (isset($_GET['ID'])) {
-        $id = intval($_GET['ID']); // Sanitizar o ID
+        $id = intval($_GET['ID']); // garante o ID inteiro
 
         // Prepara a consulta para excluir o cliente
         $stmt = $conn->prepare("DELETE FROM clientes WHERE ID = ?");
@@ -78,22 +82,20 @@ if ($act === 'eliminar_cliente') {
 }
 
 //Editar cliente
-
-else if ($act == 'editar-cliente.php') {
-    $id = $_GET['ID'];
+else if ($act == 'editar-cliente') {
+    $id = $_POST['ID'];
     $nome = $_POST['nome'];
     $data_nascimento = $_POST['data_nascimento'];
     $user = $_POST['user'];
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("UPDATE clientes SET nome = ?, data_nascimento = ?, password = ?, user = ? WHERE id = ?");
-    $stmt->bind_param('sssss', $nome, $data_nascimento, $password);
+    $stmt = $conn->prepare("UPDATE clientes SET nome = ?, data_nascimento = ?, pw = ?, user = ? WHERE id = ?");
+    $stmt->bind_param('ssssi', $nome, $data_nascimento, $password, $user, $id);
 
     // Redireciona 
-    header('Location: listar-livros.php');
+    header('Location: listar-clientes.php');
     exit;
 }
-
 
 // Verifica se a ação foi solicitada via método POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -141,6 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Executa a consulta
     if ($conn->query($sql) === TRUE) {
         echo "Livro adicionado com sucesso!";
+        header('Location: listar-livros.php');
     } else {
         echo "Erro ao adicionar o livro: " . $conn->error;
     }

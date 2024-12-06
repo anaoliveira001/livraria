@@ -21,14 +21,14 @@ $cliente = $results->fetch_assoc();
 </head>
 
 <body>
-    <form action="actions.php?act=editar-cliente" method="POST">
+    <form action="actions.php?act=editar-cliente" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="ID" value="<? $ID ?>">
 
         <label for="name">Nome:</label>
         <input type="text" name="nome" value="<?= $cliente['nome'] ?>" required>
 
         <label for="data_nascimento">Data Nascimento:</label>
-        <input type="date" value="<?= $cliente['data_nascimento'] ?>" required>
+        <input type="date" name="data_nascimento" value="<?= $cliente['data_nascimento'] ?>" required>
 
         <label for="user">User:</label>
         <input type="text" name="user" value="<?= $cliente['user'] ?>" required>
@@ -40,7 +40,7 @@ $cliente = $results->fetch_assoc();
         <input type="password" id="repetir_password" name="repetir_password" required>
 
         <label for="pic">Foto de Perfil:</label>
-        <input type="file" value="<?= $cliente['foto'] ?>" accept="image/*">
+        <input type="file" accept="image/*">
 
         <button>Registar</button>
 

@@ -21,11 +21,12 @@ include 'configs.php';
             <th>Conta Ativada</th>
             <th>Data de Registo</th>
             <th>Morada</th>
+            <th>Foto</th>
             <th>Opção</th>
         </tr>
 
         <?php
-        $sql = 'SELECT ID, nome, email, conta_ativada, data_registo, morada FROM clientes';
+        $sql = 'SELECT ID, nome, email, conta_ativada, data_registo, morada, foto FROM clientes';
         $result = $conn->query($sql);
 
 
@@ -40,15 +41,18 @@ include 'configs.php';
                 <td><?= $contaAtivada ?></td>
                 <td><?= $row['data_registo'] ?></td>
                 <td><?= $row['morada'] ?></td>
+                <td>
+                    <img src="uploads/<?= $row['foto'] ?>" alt="Foto do Usuário" width="20">
+                </td>
 
                 <td>
                     <!--  excluir -->
-                    <a href="editar-cliente.php?act=eliminar_cliente&ID=<?= $row['ID'] ?>" onclick="return confirm('Tem certeza que deseja excluir este cliente?');">
+                    <a href="actions.php?act=eliminar_cliente&ID=<?= $row['ID'] ?>" onclick="return confirm('Tem certeza que deseja excluir este cliente?');">
                         <img src="imgs/delete.png" alt="Eliminar" height="20">
                     </a>
 
                     <!-- editar -->
-                    <a href="actions.php?act=editar_cliente&ID=<?= $row['ID'] ?>" >
+                    <a href="editar-cliente.php?ID=<?= $row['ID'] ?>">
                         <img src="imgs/edit.png" alt="Editar" height="20">
                     </a>
                 </td>

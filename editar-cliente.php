@@ -1,13 +1,12 @@
 <?php
 include 'configs.php';
-$ID = $GET['ID'];
+$ID = $_GET['ID'];
 
-$stm = $conn->prepare('SELECT *FROM cliente WHERE ID = ?');
+$stm = $conn->prepare('SELECT * FROM clientes WHERE ID = ?');
 $stm->bind_param('i', $ID);
 $stm->execute();
 
 $results = $stm->get_result();
-
 $cliente = $results->fetch_assoc();
 ?>
 
@@ -18,6 +17,7 @@ $cliente = $results->fetch_assoc();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Editar Cliente</title>
+    <link rel="stylesheet" href="assets/css/editar-cliente.css">
 </head>
 
 <body>
@@ -25,24 +25,26 @@ $cliente = $results->fetch_assoc();
         <input type="hidden" name="ID" value="<? $ID ?>">
 
         <label for="name">Nome:</label>
-        <input type="text" id="nome" name="nome" value="<? $cliente['nome'] ?>" required>
+        <input type="text" name="nome" value="<?= $cliente['nome'] ?>" required>
 
         <label for="data_nascimento">Data Nascimento:</label>
-        <input type="date" id="data_nascimento" name="data_nascimento" required>
+        <input type="date" value="<?= $cliente['data_nascimento'] ?>" required>
 
         <label for="user">User:</label>
-        <input type="text" id="user" name="user" required>
+        <input type="text" name="user" value="<?= $cliente['user'] ?>" required>
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" value="<?= $cliente['pw'] ?>" name="password" required>
 
         <label for="repetir_password">Repetir Password:</label>
         <input type="password" id="repetir_password" name="repetir_password" required>
 
         <label for="pic">Foto de Perfil:</label>
-        <input type="file" id="pic" name="pic" accept="image/*">
+        <input type="file" value="<?= $cliente['foto'] ?>" accept="image/*">
 
-        <input type="submit" value="Registar">
+        <button>Registar</button>
+
+    
     </form>
 </body>
 

@@ -53,7 +53,7 @@ include 'configs.php';
                 <td><textarea id="sinopse" name="sinopse" required placeholder="Sinopse"></textarea></td>
             </tr>
         </table>
-        <button type="submit">Adicionar</button>
+        <button type="submit" >Adicionar</button>
     </form>
     </div>
 

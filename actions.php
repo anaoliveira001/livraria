@@ -14,6 +14,18 @@ if (isset($_GET['act']) && $_GET['act'] === 'registar_cliente') {
         $repetir_password = $_POST['repetir_password'];
         $pic = $_FILES['pic'];
 
+
+        $extension = strtolower(pathinfo($pic['name'], PATHINFO_EXTENSION));
+        if ($pic) {
+            if (!in_array($extension, array('jpeg', 'png', 'jpg', 'gif', 'bmp', 'tiff', 'svg', 'webp'))) {
+                echo "Extension is valid";
+                exit;
+            }
+        }
+        $pic_name = uniqid() . '.' . $extension;
+        move_uploaded_file($pic['tmp_name'], 'uploads/' . $pic_name);
+
+
         // Verifica se as senhas correspondem
         if ($password !== $repetir_password) {
             die('As senhas não coincidem.');
@@ -23,9 +35,10 @@ if (isset($_GET['act']) && $_GET['act'] === 'registar_cliente') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insere os dados no banco
-        $sql = "INSERT INTO clientes (nome, data_registo, pw, foto, tipo) VALUES (?, NOW(), ?, ?, 'utilizador')";
+        $sql = "INSERT INTO clientes (foto, nome, pw, user, data_nascimento) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sss', $nome, $hashed_password, $pic_name);
+        $stmt->bind_param('sssss', $pic_name, $nome, $pw, $user, $data_nascimento);
+        $stmt->execute();
 
         if ($stmt->execute()) {
             // Redireciona após o registro
@@ -37,9 +50,36 @@ if (isset($_GET['act']) && $_GET['act'] === 'registar_cliente') {
     }
 }
 
+// eliminar cliente
+
+if ($act === 'eliminar_cliente') {
+    if (isset($_GET['ID'])) {
+        $id = intval($_GET['ID']); // Sanitizar o ID
+
+        // Prepara a consulta para excluir o cliente
+        $stmt = $conn->prepare("DELETE FROM clientes WHERE ID = ?");
+        $stmt->bind_param('i', $id);
+
+        // Executa a exclusão
+        if ($stmt->execute()) {
+            echo "<script>alert('Cliente excluído com sucesso!');</script>";
+        } else {
+            echo "<script>alert('Erro ao excluir cliente: {$conn->error}');</script>";
+        }
+
+        // Redireciona de volta para a lista de clientes
+        header('Location: listar-clientes.php');
+        exit;
+    } else {
+        echo "<script>alert('ID de cliente não informado.');</script>";
+        header('Location: listar-clientes.php');
+        exit;
+    }
+}
+
 //Editar cliente
 
-else if ($act == 'editar-cliente') {
+else if ($act == 'editar-cliente.php') {
     $id = $_GET['ID'];
     $nome = $_POST['nome'];
     $data_nascimento = $_POST['data_nascimento'];
@@ -52,7 +92,6 @@ else if ($act == 'editar-cliente') {
     // Redireciona 
     header('Location: listar-livros.php');
     exit;
-
 }
 
 

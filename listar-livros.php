@@ -10,6 +10,10 @@ if (isset($_GET['delete_id'])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $delete_id);
     $stmt->execute();
+
+    $sql = "SELECT livros.*, fornecedores.nome AS fornecedor 
+    FROM livros 
+    INNER JOIN fornecedores ON livros.ID_fornecedor = fornecedores.ID";
 }
 ?>
 
@@ -24,6 +28,7 @@ if (isset($_GET['delete_id'])) {
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
     <h1>Lista de Livros</h1>
     <table border=1 cellpadding=10 cellspacing=0>
         <tr>
@@ -53,7 +58,7 @@ if (isset($_GET['delete_id'])) {
                     <a href="editar-livro.php?ID=<?= $row['ID'] ?>">
                         <img src="imgs/edit.png" alt="Editar" height="20">
                     </a
-                </td>
+                        </td>
             </tr>
         <?php
         }
@@ -61,6 +66,7 @@ if (isset($_GET['delete_id'])) {
     </table>
     <br>
     <a href="add-livros.php">Adicionar Novo Livro</a>
+    <?php include 'footer.php'; ?>;
 </body>
 
 </html>

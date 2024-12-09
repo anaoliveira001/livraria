@@ -21,6 +21,7 @@ $cliente = $results->fetch_assoc();
 </head>
 
 <body>
+    
     <form action="actions.php?act=editar-cliente" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="ID" value="<? $ID ?>">
 
@@ -44,7 +45,7 @@ $cliente = $results->fetch_assoc();
 
         <button>Registar</button>
 
-    
+        
     </form>
 </body>
 

@@ -58,7 +58,7 @@ if ($act == 'registar_cliente') {
 
 if ($act === 'eliminar_cliente') {
     if (isset($_GET['ID'])) {
-        $id = intval($_GET['ID']); // garante o ID inteiro
+        $id = intval($_GET['ID']); 
 
         // Prepara a consulta para excluir o cliente
         $stmt = $conn->prepare("DELETE FROM clientes WHERE ID = ?");
@@ -66,16 +66,19 @@ if ($act === 'eliminar_cliente') {
 
         // Executa a exclusão
         if ($stmt->execute()) {
-            echo "<script>alert('Cliente excluído com sucesso!');</script>";
+            
+            set_message('success', 'Cliente excluído com sucesso!');
         } else {
-            echo "<script>alert('Erro ao excluir cliente: {$conn->error}');</script>";
+            
+            set_message('error', 'Erro ao excluir cliente.');
         }
 
-        // Redireciona de volta para a lista de clientes
+        
         header('Location: listar-clientes.php');
         exit;
     } else {
-        echo "<script>alert('ID de cliente não informado.');</script>";
+        
+        set_message('error', 'ID de cliente não informado.');
         header('Location: listar-clientes.php');
         exit;
     }
@@ -148,3 +151,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Erro ao adicionar o livro: " . $conn->error;
     }
 }
+

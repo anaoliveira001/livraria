@@ -1,5 +1,6 @@
 <?php
 include 'configs.php';
+display_message();
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,8 @@ include 'configs.php';
 </head>
 
 <body>
-    <a href="registar.php" class="btn">Novo</a>
+    <?php include 'header.php'; ?>
+    <a href="registar-php" class="btn">Novo</a>
     <table>
         <tr>
             <th>Nome</th>
@@ -61,6 +63,7 @@ include 'configs.php';
         }
         ?>
     </table>
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>
